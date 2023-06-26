@@ -1,16 +1,7 @@
 # Template-Functions-Project
 
-
 ### Getting Started:
-- install the firebase CLI with
-```
-npm install -g firebase-tools
-```
-- navigate to the functions directory and install dependencies with
-```
-cd functions && npm i
-```
-
-### Running Your Code:
-- Start Firebase local emulator with `npm run serve`
-- Run tests by creating separate terminal and executing command `npm run test`
+- Install the firebase CLI with `npm i -g firebase-tools`
+- Navigate to the functions directory and install dependencies with `cd functions && npm i`
+- Start emulators with `npm run serve`
+- In separate terminal, confirm tests pass with `npm run test`
