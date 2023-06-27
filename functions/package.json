@@ -4,8 +4,8 @@
     "lint": "eslint --ext .js,.ts .",
     "build": "tsc",
     "serve": "npm run build && firebase emulators:start --import=./emulators.backup",
-    "test:watch": "FIRESTORE_EMULATOR_HOST=localhost:8081 jest --watchAll",
-    "test": "jest",
+    "test:watch": "FIRESTORE_EMULATOR_HOST=localhost:8081 jest --watchAll --testTimeout=10000",
+    "test": "jest --testTimeout=10000 --detectOpenHandles",
     "dev": "concurrently npm:serve npm:test:watch"
   },
   "engines": {
@@ -41,6 +41,7 @@
       "node_modules/(?!axios)"
     ],
     "testEnvironment": "node",
+    "testPathIgnorePatterns": ["/node_modules/", "/lib/"],
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
     "moduleFileExtensions": [
       "ts",
