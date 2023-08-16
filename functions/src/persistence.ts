@@ -1,8 +1,14 @@
 import * as admin from "firebase-admin";
 import {Collections, Recording, User} from "./types";
-import {config} from "firebase-functions";
 
-admin.initializeApp(config().firebase);
+import * as path from "path";
+const serviceAccountPath = path.join(__dirname, "../../sirocodingchallenges-firebase-adminsdk-d5epk-2bfdd561ef.json");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const serviceAccount = require(serviceAccountPath);
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 // point to emulator
 admin.firestore().settings({
   host: "127.0.0.1:8080",
