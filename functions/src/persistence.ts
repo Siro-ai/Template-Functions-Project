@@ -37,6 +37,7 @@ export async function getRecordingByCreatorId(creatorId: string) {
  *
  * - ADD a document: create a new document with a randomly generated id
  * - SET a document: create or update a new document with a specific id
+ * - CREATE a document: create a new document (fails if document already exists)
  * - UPDATE a document: update an existing document (fails if document doesn't exist)
  * - DELETE a document: delete an existing document (fails if document doesn't exist)
  * - BATCH WRITE: perform multiple operations as a single batch. All operations will succeed or fail together.
