@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as admin from "firebase-admin";
 import {Collections, Recording, User} from "./types";
 import * as path from "path";
@@ -51,6 +52,19 @@ export async function addRecording(recording: Recording) {
 export async function setRecording(id: string, recording: Recording) {
   await db.collection(Collections.Recordings).doc(id).set(recording);
 }
+
+export async function createUser(user: User) {
+  try {
+    await db.collection(Collections.Users).doc(user.id).create(user);
+  } catch (error: any) {
+    if (error?.code === "already-exists") {
+      return false;
+    }
+    throw error;
+  }
+  return true;
+}
+
 export async function updateRecording(id: string, recording: Partial<Recording>) {
   await db.collection(Collections.Recordings).doc(id).update(recording);
 }
@@ -76,3 +90,13 @@ export async function transactionUpdateRecordingAndUser(recordingId: string, rec
     transaction.update(db.collection(Collections.Users).doc(userId), user);
   });
 }
+
+export async function updateWithAtomicOperations(userId: string, increment: number) {
+  await db.collection(Collections.Users).doc(userId).update({
+    // note, these fields don't exist on the User type. They is just an illustration of how to use atomic operations
+    score: admin.firestore.FieldValue.increment(increment),
+    lastLogin: admin.firestore.FieldValue.serverTimestamp(),
+    favoriteColors: admin.firestore.FieldValue.arrayUnion("red"),
+  });
+}
+
